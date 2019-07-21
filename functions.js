@@ -4,8 +4,13 @@ const chalk = require('chalk')
 require("dotenv").config()
 const parseJson = require('parse-json')
 const moment = require('moment')
+const Spotify = require('node-spotify-api')
 
 
+const spotify = new Spotify({
+    id: process.env.SPOTIFY_ID,
+    secret: process.env.SPOTIFY_SECRET
+});
 
 const searchForConcerts = (artist) => {
     axios.get(`https://rest.bandsintown.com/artists/${artist}/events/`,{
@@ -31,6 +36,17 @@ const searchForConcerts = (artist) => {
     })
 }
 
+const spotifyThis = (songTitle) => {
+    spotify.search({type: 'track', limit: '1', query: `${songTitle}`}, function(err, data){
+        if (err) {
+            return console.log(chalk.red(`Error Occured: ${err}`))
+        }
+        console.log(data.tracks.items[0])
+    })
+
+}
+
 module.exports = {
-    searchForConcerts: searchForConcerts
+    searchForConcerts: searchForConcerts,
+    spotifyThis: spotifyThis,
 }

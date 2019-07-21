@@ -30,7 +30,7 @@ yargs.command({
         }
     },
     handler (argv) {
-        //to add: song info search
+        func.spotifyThis(argv.title)
     }
 })
 
