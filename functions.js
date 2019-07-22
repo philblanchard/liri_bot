@@ -7,10 +7,15 @@ const moment = require('moment')
 const Spotify = require('node-spotify-api')
 
 
+
 const spotify = new Spotify({
     id: process.env.SPOTIFY_ID,
     secret: process.env.SPOTIFY_SECRET
 });
+
+
+
+
 
 const searchForConcerts = (artist) => {
     axios.get(`https://rest.bandsintown.com/artists/${artist}/events/`,{
@@ -41,9 +46,13 @@ const spotifyThis = (songTitle) => {
         if (err) {
             return console.log(chalk.red(`Error Occured: ${err}`))
         }
-        console.log(data.tracks.items[0])
+        console.log(chalk.green('----Spotify Song Search----'))
+        console.log('Artist: ' + data.tracks.items[0].album.artists[0].name)
+        console.log('Song Title: ' + data.tracks.items[0].name)
+        console.log('Preview (If Available): ' + data.tracks.items[0].preview_url)
+        console.log('Album Title: ' + data.tracks.items[0].album.name)
+        console.log(chalk.green('--------------------'))
     })
-
 }
 
 module.exports = {
