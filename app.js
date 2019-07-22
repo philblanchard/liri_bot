@@ -45,7 +45,7 @@ yargs.command({
         }
     },
     handler (argv) {
-        //to add: movie search func
+        func.movieSearch(argv.title)
     }
 })
 

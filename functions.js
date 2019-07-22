@@ -55,7 +55,40 @@ const spotifyThis = (songTitle) => {
     })
 }
 
+const movieSearch = (title) => {
+    axios.get('http://www.omdbapi.com/', {
+        params: {
+            apikey: 'trilogy',
+            t: title
+        }
+    })
+    .then(function(response){
+
+
+
+
+        console.log(chalk.green('----OMDB Film Search----'))
+        console.log('Movie Title: ' + response.data.Title)
+        console.log('Release Year: ' + response.data.Year)
+        console.log('IMDB Rating: ' + response.data.imdbRating)
+        console.log('Rotten Tomatoes Rating: ' + response.data.Ratings[1].Value)
+        console.log('Country: ' + response.data.Country)
+        console.log('Language: ' + response.data.Language)
+        console.log('Plot: ' + response.data.Plot)
+        console.log('Cast: ' + response.data.Actors)
+        console.log(chalk.green('----------------'))
+
+    })
+    .catch(function (error){
+        console.log(error)
+    })
+    .then(function (){
+
+    })
+}
+
 module.exports = {
     searchForConcerts: searchForConcerts,
     spotifyThis: spotifyThis,
+    movieSearch: movieSearch
 }
