@@ -8,14 +8,11 @@ const Spotify = require('node-spotify-api')
 
 
 
+
 const spotify = new Spotify({
     id: process.env.SPOTIFY_ID,
     secret: process.env.SPOTIFY_SECRET
 });
-
-
-
-
 
 const searchForConcerts = (artist) => {
     axios.get(`https://rest.bandsintown.com/artists/${artist}/events/`,{
@@ -63,10 +60,6 @@ const movieSearch = (title) => {
         }
     })
     .then(function(response){
-
-
-
-
         console.log(chalk.green('----OMDB Film Search----'))
         console.log('Movie Title: ' + response.data.Title)
         console.log('Release Year: ' + response.data.Year)
@@ -87,8 +80,29 @@ const movieSearch = (title) => {
     })
 }
 
+const fileRead = (fileName) => {
+    
+    if (!fileName){
+        
+        data = fs.readFileSync('random.txt', 'utf-8')
+        dataArr = data.split(",")
+        commandDispatcher(dataArr[0], dataArr[1])
+    } else {console.log('i will load that one')}
+}
+
+var commands = {
+    'movie-this': movieSearch,
+    'concert-this': searchForConcerts,
+    'spotify-this-song': spotifyThis
+}
+
+const commandDispatcher = (command, query) => {
+    console.log(commands[`${command}`](query))
+}
+
 module.exports = {
     searchForConcerts: searchForConcerts,
     spotifyThis: spotifyThis,
-    movieSearch: movieSearch
+    movieSearch: movieSearch,
+    fileRead: fileRead
 }

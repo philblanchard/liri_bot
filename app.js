@@ -45,6 +45,7 @@ yargs.command({
         }
     },
     handler (argv) {
+        console.log('searching for film')
         func.movieSearch(argv.title)
     }
 })
@@ -52,9 +53,20 @@ yargs.command({
 yargs.command({
     command: 'do-what-it-says',
     describe: 'Do what the text file(random.txt) says',
-    handler: function() {
-        //to add: weird functi
+    builder: {
+        fileName: {
+            describe: 'Name of the file to load',
+            demandOption: false,
+            type: 'String'
+        }
+    },
+    handler (argv) {
+        arg = func.fileRead(argv.fileName)
+
     }
-})
+    
+}) 
 
 yargs.parse();
+
+
