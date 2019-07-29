@@ -87,7 +87,13 @@ const fileRead = (fileName) => {
         data = fs.readFileSync('random.txt', 'utf-8')
         dataArr = data.split(",")
         commandDispatcher(dataArr[0], dataArr[1])
-    } else {console.log('i will load that one')}
+    } else {
+        console.log('i will load that one')
+        data = fs.readFileSync(fileName, 'utf-8')
+        dataArr = data.split(",")
+        commandDispatcher(dataArr[0], dataArr[1])
+}
+
 }
 
 var commands = {
